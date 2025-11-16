@@ -1,0 +1,39 @@
+name: Avica
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 360
+    name: Start Building...
+
+    steps:
+      - name: Create Downloads.bat
+        run: |
+          echo @echo off > Downloads.bat
+          echo echo Running Downloads.bat >> Downloads.bat
+          echo echo Put your commands here... >> Downloads.bat
+
+      - name: Create show.bat
+        run: |
+          echo @echo off > show.bat
+          echo echo Showing website... >> show.bat
+
+      - name: Create loop.bat
+        run: |
+          echo @echo off > loop.bat
+          echo :loop >> loop.bat
+          echo echo Loop running... >> loop.bat
+          echo timeout /t 1 >nul >> loop.bat
+          echo goto loop >> loop.bat
+
+      - name: Run Downloads
+        run: cmd /c Downloads.bat
+
+      - name: Show Website
+        run: cmd /c show.bat
+
+      - name: Time Counter
+        run: cmd /c loop.bat
